@@ -12,10 +12,10 @@ export const Auth = () => {
 
   const login = useMutation("login", (data: ILogin) =>
     AuthService.login(data).then((data) => {
-      dispatch({ type: "complete", user: data.data.user });
+      dispatch({ type: "complete", user: data });
       saveCookies({
-        accessToken: data.data.accessToken,
-        refreshToken: data.data.refreshToken,
+        accessToken: data.accessToken,
+        refreshToken: data.refreshToken,
       });
     })
   );

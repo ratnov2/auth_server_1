@@ -1,10 +1,11 @@
 import { api, baseApi } from "../api/api";
 import { getRefreshToken } from "../api/save-token";
 import { ITokensUser } from "../types/user.types";
+import { server_login, server_check_auth } from "../api/server.js";
 
 export const AuthService = {
   async login(data: ILogin) {
-    const login = await api.post<ITokensUser>(`/api/auth/login`, data);
+    const login = await server_login(data);
     return login;
   },
 
@@ -14,11 +15,7 @@ export const AuthService = {
   },
   async newTokens() {
     const data = { refreshToken: getRefreshToken() };
-
-    const tokens = await baseApi.post<ITokensUser>(
-      `/api/auth/login/access-token`,
-      data
-    );
+    const tokens = await server_check_auth(data);
 
     return tokens;
   },

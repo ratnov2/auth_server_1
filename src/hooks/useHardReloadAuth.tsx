@@ -9,10 +9,12 @@ export const useHardReloadAuth = (dispatch: any) => {
       try {
         const response = await AuthService.newTokens();
         if (!ignore) {
-          dispatch({ type: "complete", user: response.data.user });
+          dispatch({ type: "complete", user: response });
+          console.log(response.accessToken);
+          
           saveCookies({
-            accessToken: response.data.accessToken,
-            refreshToken: response.data.refreshToken,
+            accessToken: response.accessToken,
+            refreshToken: response.refreshToken,
           });
         }
       } catch (e) {
