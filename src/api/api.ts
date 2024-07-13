@@ -18,6 +18,15 @@ export const api = axios.create({
   },
 });
 
+export const api2 = axios.create({
+  baseURL: "https://oauth.yandex.ru",
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    "Content-type": "application/x-www-form-urlencoded",
+    "Authorization":'OAuth y0_AgAAAAATnv4AAAnLWQAAAAEGenIjAAAzRjj-6vpD1q1Inpl8pAeLfWqDmg'
+  },
+});
+
 api.interceptors.request.use(
   async (config) => {
     const token = getAccessToken(); // Получаем актуальный токен
@@ -60,7 +69,7 @@ api.interceptors.response.use(
         return Promise.reject(tokenRefreshError);
       }
     }
-    
+
     return Promise.reject(error);
   }
 );
